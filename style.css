@@ -1,0 +1,461 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 通用部分样式 */
+.section {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+
+.section.active {
+    display: block;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 欢迎页面样式 */
+.welcome-content {
+    padding: 60px 20px;
+}
+
+.welcome-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: #ff6b6b;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.welcome-content p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    color: #666;
+}
+
+/* 按钮样式 */
+.btn {
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+}
+
+/* 游戏页面样式 */
+#balloon-container {
+    position: relative;
+    height: 400px;
+    margin: 40px 0;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(240, 248, 255, 0.7), rgba(255, 248, 220, 0.7));
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* 游戏未开始时的提示 */
+#balloon-container::before {
+    content: '点击"开始游戏"按钮开始玩气球游戏！';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.6);
+    text-align: center;
+    z-index: 1;
+}
+
+/* 游戏开始后隐藏提示 */
+#balloon-container.game-started::before {
+    display: none;
+}
+
+.balloon {
+    position: absolute;
+    width: 80px;
+    height: 100px;
+    background: radial-gradient(circle, #ff6b6b 0%, #ee5a6f 100%);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    cursor: pointer;
+    animation: float 6s ease-in-out infinite;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.balloon::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 20px;
+    background: #333;
+}
+
+.balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    background: #ffd93d;
+    border-radius: 50%;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-10px) rotate(2deg); }
+    50% { transform: translateY(0) rotate(0deg); }
+    75% { transform: translateY(-10px) rotate(-2deg); }
+}
+
+.balloon.pop {
+    animation: pop 0.5s ease-in-out forwards;
+}
+
+@keyframes pop {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+.game-stats {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.game-timer {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #ff6b6b;
+}
+
+.game-result {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.game-result.taunt {
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+    border: 2px solid #ff6b6b;
+}
+
+.game-result.praise {
+    color: #4ecdc4;
+    background: rgba(78, 205, 196, 0.1);
+    border: 2px solid #4ecdc4;
+}
+
+.game-target {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.skip-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(200, 200, 200, 0.8);
+    color: #333;
+    font-size: 12px;
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.skip-btn:hover {
+    opacity: 1;
+    background-color: rgba(180, 180, 180, 0.9);
+}
+
+.balloon-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* 祝福页面样式 */
+#wish-section {
+    text-align: center;
+}
+
+#wishes-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.wish-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    text-align: left;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.wish-card:hover {
+    transform: translateY(-5px);
+}
+
+.delete-wish {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 107, 107, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.wish-card:hover .delete-wish {
+    opacity: 1;
+}
+
+.delete-wish:hover {
+    background-color: #ff6b6b;
+}
+
+.wish-author {
+    display: block;
+    margin-top: 10px;
+    font-style: italic;
+    color: #666;
+}
+
+/* 添加祝福表单样式 */
+.add-wish-form {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 30px auto;
+    text-align: left;
+}
+
+.add-wish-form h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: vertical;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+}
+
+/* 照片墙页面样式 */
+#photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 40px 0;
+}
+
+.photo-item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.photo-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.photo-item:hover img {
+    transform: scale(1.05);
+}
+
+.delete-photo {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(255, 99, 132, 0.8);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.photo-item:hover .delete-photo {
+    opacity: 1;
+}
+
+.delete-photo:hover {
+    background-color: rgba(255, 99, 132, 1);
+}
+
+#photo-upload {
+    display: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .section {
+        margin-top: 20px;
+        padding: 20px 15px;
+    }
+
+    .welcome-content h1 {
+        font-size: 2.5rem;
+    }
+
+    #balloon-container {
+        height: 300px;
+    }
+
+    .balloon {
+        width: 60px;
+        height: 80px;
+    }
+
+    #wishes-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .wish-card {
+        max-width: 100%;
+    }
+
+    #photo-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .photo-item img {
+        height: 150px;
+    }
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
